@@ -47,10 +47,7 @@ public class ThemedIconDrawable extends FastBitmapDrawable {
     private final Bitmap mBgBitmap;
     private final Paint mBgPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
 
-    private Rect mRect;
-
     private final ColorFilter mBgFilter, mMonoFilter;
-//    private final Bitmap mMonoResize;
 
     protected ThemedIconDrawable(ThemedConstantState constantState) {
         super(constantState.mBitmap, constantState.colorFg);
@@ -61,7 +58,6 @@ public class ThemedIconDrawable extends FastBitmapDrawable {
         mMonoIcon = bitmapInfo.mMono;
         mMonoFilter = new BlendModeColorFilter(colorFg, BlendMode.SRC_IN);
         mMonoPaint.setColorFilter(mMonoFilter);
-//        mMonoResize = Bitmap.createScaledBitmap(mMonoIcon, mMonoIcon.getWidth()/2, mMonoIcon.getHeight()/2, false);
 
         mBgBitmap = bitmapInfo.mWhiteShadowLayer;
         mBgFilter = new BlendModeColorFilter(colorBg, BlendMode.SRC_IN);
@@ -71,10 +67,7 @@ public class ThemedIconDrawable extends FastBitmapDrawable {
     @Override
     protected void drawInternal(Canvas canvas, Rect bounds) {
         canvas.drawBitmap(mBgBitmap, null, bounds, mBgPaint);
-        mRect = new Rect();
-        mRect.set(bounds);
-        mRect.inset(bounds.width()/4, bounds.height()/4);
-        canvas.drawBitmap(mMonoIcon, null, mRect, mMonoPaint);
+        canvas.drawBitmap(mMonoIcon, null, bounds, mMonoPaint);
     }
 
     @Override
